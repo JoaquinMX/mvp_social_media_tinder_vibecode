@@ -1,0 +1,64 @@
+[
+  {
+    "id": "movie-1",
+    "category": "movies",
+    "title": "Midnight in Paris",
+    "description": "A charming romantic comedy set in the streets of Paris.",
+    "imageUrl": "https://image.tmdb.org/t/p/w500/placeholder_midnight_paris.jpg",
+    "priceLevel": 2,
+    "metadata": {"runtimeMinutes": 94, "tmdbId": 59436}
+  },
+  {
+    "id": "movie-2",
+    "category": "movies",
+    "title": "Into the Spider-Verse",
+    "description": "An award-winning animated adventure across the Spider-Verse.",
+    "imageUrl": "https://image.tmdb.org/t/p/w500/placeholder_spiderverse.jpg",
+    "priceLevel": 3,
+    "metadata": {"runtimeMinutes": 117, "tmdbId": 324857}
+  },
+  {
+    "id": "place-1",
+    "category": "places",
+    "title": "Sunset Rooftop Lounge",
+    "description": "Cocktails with skyline views and live DJ sets.",
+    "imageUrl": "https://example.com/images/rooftop.jpg",
+    "location": {
+      "latitude": 40.7128,
+      "longitude": -74.006,
+      "address": "120 Market St, New York, NY"
+    },
+    "priceLevel": 4,
+    "metadata": {"googlePlaceId": "abc123"}
+  },
+  {
+    "id": "place-2",
+    "category": "places",
+    "title": "Artisan Coffee Crawl",
+    "description": "Self-guided tour of the city's best espresso bars.",
+    "imageUrl": "https://example.com/images/coffee.jpg",
+    "location": {
+      "latitude": 34.0522,
+      "longitude": -118.2437,
+      "address": "Downtown Los Angeles, CA"
+    },
+    "priceLevel": 2,
+    "metadata": {"googlePlaceId": "def456"}
+  },
+  {
+    "id": "game-1",
+    "category": "videogames",
+    "title": "Overcooked! All You Can Eat",
+    "description": "Chaotic couch co-op cooking fun for up to four players.",
+    "imageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1p7b.jpg",
+    "metadata": {"igdbId": 18760, "platforms": ["Switch", "PS5", "Xbox"]}
+  },
+  {
+    "id": "game-2",
+    "category": "videogames",
+    "title": "Stardew Valley",
+    "description": "Relaxed farming simulator with multiplayer support.",
+    "imageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r5f.jpg",
+    "metadata": {"igdbId": 1020, "platforms": ["PC", "Switch", "Mobile"]}
+  }
+]
