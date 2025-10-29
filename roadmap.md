@@ -35,7 +35,7 @@ Build a group-based activity discovery application where users swipe through eve
 - Persist decisions and match states in backend storage (e.g., Firebase, Supabase, or custom backend).
 
 ### 5. Enhancements & Polish
-- Add filtering options (price range, distance, genre).
+- Add advanced filtering (price ceilings, runtime thresholds, platform preferences) and expand with distance-based rules once location data is available.
 - Implement analytics and logging through Riverpod provider observers.
 - Add testing layers: unit tests for match logic, widget tests for swipe interactions, integration tests for API clients.
 - Optimize performance with pagination, caching, and `const` widgets where applicable.
@@ -50,3 +50,4 @@ Build a group-based activity discovery application where users swipe through eve
 ## Change Log
 - **2024-06-05**: Initial roadmap drafted capturing milestones, guiding principles, and next steps.
 - **2024-06-05**: Scaffolded Flutter app with Riverpod architecture, mock data integrations, and end-to-end MVP flows (onboarding, swipe, matches).
+- **2024-06-06**: Added advanced client-side filtering controls and drafted the initial PostgreSQL ERD in preparation for persistence work.

@@ -5,6 +5,7 @@
 - [x] Identified third-party APIs (Google Places, TMDB, IGDB) and map stack (MapLibre).
 - [x] Established data models for users, groups, events, and swipes.
 - [x] Added repository scaffolding, lint rules, and placeholder assets for prototyping.
+- [x] Drafted PostgreSQL ERD to guide future persistence work.
 
 ## Milestone 2: Core Experience (MVP)
 - [x] Implemented onboarding flow for creating a group and configuring thresholds.
@@ -25,7 +26,7 @@
 - [ ] Persisted decisions in a backend service.
 
 ## Milestone 5: Enhancements & Polish
-- [ ] Added advanced filtering (price, distance, genre).
+- [x] Added advanced filtering (price, runtime, platforms).
 - [x] Integrated Riverpod provider observer for logging.
 - [x] Added unit tests for match logic.
 - [ ] Implemented pagination and performance tuning.

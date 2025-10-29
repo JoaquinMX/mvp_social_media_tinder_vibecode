@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../app/app_state.dart';
+import '../../events/application/event_filters_controller.dart';
+import '../../events/domain/event_filters.dart';
 import '../../events/presentation/event_card.dart';
+import '../../events/presentation/event_filters_sheet.dart';
 import '../../onboarding/domain/group_models.dart';
 import '../application/swipe_deck_controller.dart';
 import '../domain/swipe_models.dart';
@@ -13,6 +16,7 @@ class SwipeExperiencePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final deckState = ref.watch(swipeDeckControllerProvider);
+    final filters = ref.watch(eventFiltersProvider);
     final controller = ref.read(swipeDeckControllerProvider.notifier);
 
     if (deckState.isLoading) {
@@ -45,6 +49,11 @@ class SwipeExperiencePage extends ConsumerWidget {
         title: const Text('Swipe plans'),
         actions: [
           IconButton(
+            icon: const Icon(Icons.filter_alt),
+            tooltip: 'Filters',
+            onPressed: () => _openFilters(context),
+          ),
+          IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: controller.refreshDeck,
             tooltip: 'Refresh events',
@@ -56,6 +65,10 @@ class SwipeExperiencePage extends ConsumerWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
+              if (filters.hasActiveFilters) ...[
+                _ActiveFiltersSummary(filters: filters),
+                const SizedBox(height: 16),
+              ],
               Expanded(
                 child: EventCard(event: currentEvent),
               ),
@@ -115,5 +128,55 @@ class SwipeExperiencePage extends ConsumerWidget {
     if (reason != null) {
       controller.recordLocalDecision(type: SwipeDecisionType.no, reason: reason);
     }
+  }
+
+  Future<void> _openFilters(BuildContext context) {
+    return showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => const EventFiltersSheet(),
+    );
+  }
+}
+
+class _ActiveFiltersSummary extends StatelessWidget {
+  const _ActiveFiltersSummary({required this.filters});
+
+  final EventFilters filters;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final chips = <Widget>[];
+    if (filters.maxPriceLevel != null) {
+      final priceLabel = '\$' * (filters.maxPriceLevel ?? 0);
+      chips.add(Chip(label: Text('≤ $priceLabel')));
+    }
+    if (filters.maxRuntimeMinutes != null) {
+      chips.add(Chip(label: Text('≤ ${filters.maxRuntimeMinutes}m movies')));
+    }
+    final sortedPlatforms = filters.preferredPlatforms.toList()..sort();
+    for (final platform in sortedPlatforms) {
+      chips.add(Chip(label: Text(platform)));
+    }
+
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Active filters',
+            style: theme.textTheme.titleSmall,
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: chips,
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../app/app_state.dart';
+import '../../events/application/event_filters_controller.dart';
 import '../../events/data/event_repository_provider.dart';
+import '../../events/domain/event_filters.dart';
 import '../../events/domain/event.dart';
 import '../../onboarding/domain/group_models.dart';
 import '../domain/swipe_models.dart';
@@ -13,6 +15,11 @@ class SwipeDeckController extends StateNotifier<SwipeDeckState> {
   SwipeDeckController(this.ref)
       : _simulator = const GroupPreferenceSimulator(),
         super(SwipeDeckState.loading()) {
+    ref.listen<EventFilters>(eventFiltersProvider, (previous, next) {
+      if (previous != next) {
+        refreshDeck();
+      }
+    }, fireImmediately: false);
     _initialise();
   }
 
@@ -35,7 +42,11 @@ class SwipeDeckController extends StateNotifier<SwipeDeckState> {
     }
     state = SwipeDeckState.loading();
     final repository = ref.read(eventRepositoryProvider);
-    final events = await repository.fetchEvents(categories: settings.selectedCategories);
+    final filters = ref.read(eventFiltersProvider);
+    final events = await repository.fetchEvents(
+      categories: settings.selectedCategories,
+      filters: filters,
+    );
     final baseDecisions = {
       for (final member in settings.members) member.id: <SwipeDecision>[],
     };

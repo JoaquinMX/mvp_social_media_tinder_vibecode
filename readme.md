@@ -10,11 +10,13 @@ The Group Activity Swipe App is a Flutter-based mobile application that helps fr
 - **Match curation**: Display separate lists for full matches (everyone said yes) and partial matches that need reconsideration by specific members.
 - **Map-powered places**: Preview location cards with MapLibre and ready-to-wire Google Places IDs.
 - **Simulated group consensus**: Deterministic simulator generates other members' votes so the full/partial match flows can be exercised end-to-end before the realtime backend is ready.
+- **Advanced filtering**: Configure maximum price, movie runtime ceilings, and preferred videogame platforms to tailor the swipe deck before the backend persists preferences.
 
 ## Architecture
 - **Presentation**: Material 3 UI split into feature directories (`onboarding`, `categories`, `swipe`, `matches`, `events`). Widgets consume Riverpod providers instead of stateful singletons.
 - **State management**: `appFlowController` coordinates navigation stages, `swipeDeckController` orchestrates event queues, and match providers compute derived results. A `ProviderLogger` observer is wired for future analytics.
 - **Data layer**: `MockEventRepository` hydrates cards from `assets/data/events.json` with normalized models. Replace with real API clients once credentials are available.
+- **Filtering**: A dedicated `EventFiltersController` drives Riverpod-powered filter state that is applied during repository fetches and summarised in the swipe UI.
 - **Domain models**: Equatable types (`GroupSettings`, `Event`, `SwipeDecision`, `MatchResult`) encapsulate business logic and power deterministic unit tests.
 - **Testing**: `test/match_calculator_test.dart` validates match thresholds and reason handling. Expand with widget/integration tests as APIs solidify.
 
@@ -37,6 +39,9 @@ The Group Activity Swipe App is a Flutter-based mobile application that helps fr
 2. Configure environment variables and API keys for Google Places, TMDB, and IGDB.
 3. Swap the mock repository with real API clients and wire persistence for swipe decisions.
 4. Follow the roadmap in [`roadmap.md`](./roadmap.md) to iterate towards a production-ready MVP.
+
+## Database Planning
+- Consult [`docs/database_schema.md`](./docs/database_schema.md) for the PostgreSQL-oriented entity relationship diagram that underpins persistence work and mirrors the advanced filtering model introduced in the prototype.
 
 ## Contributing
 - Follow the naming, formatting, and state management conventions described in [`flutter_dart_riverpod_mockito.md`](./flutter_dart_riverpod_mockito.md).
